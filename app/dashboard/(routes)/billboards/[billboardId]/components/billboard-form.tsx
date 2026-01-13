@@ -46,7 +46,7 @@ export const BillboardForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
-      ? { label: initialData.label, imageUrl: initialData.url }
+      ? { label: initialData.label, imageUrl: initialData.imageUrl }
       : { label: "", imageUrl: "" },
   });
 
@@ -143,9 +143,12 @@ export const BillboardForm: React.FC<SettingsFormProps> = ({ initialData }) => {
                 <FormLabel>Background Image</FormLabel>
                 <FormControl>
                   <ImageUpload
-                    value={field.value ? [field.value] : []}
+                    value={field.value ? [{ url: field.value, id: "img" }] : []}
                     disabled={loading}
-                    onChange={(url) => field.onChange(url)}
+                    onChange={(images) => {
+                      if (typeof images === "function") return
+                      field.onChange(images.map((img) => ({ url: img.url })))
+                    }}
                     onRemove={() => field.onChange("")}
                   />
                 </FormControl>

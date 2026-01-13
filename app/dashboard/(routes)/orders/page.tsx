@@ -7,37 +7,36 @@ import { OrderColumn } from './components/columns'
 import { Order } from '@/utils/type'
 
 const OrdersPage = async () => {
-    const orders = await getOrders();
+  const orders = await getOrders();
 
-    const formattedOrders: OrderColumn[] = Array.isArray(orders) 
-        ? orders.map((item) => ({
-            id: item.id,
-            phone: item.guestPhone || item.user?.phoneNumber || "N/A",
-            address: item.shippingAddress
-                ? `${item.shippingAddress.street || ''}, ${item.shippingAddress.city || ''}, ${item.shippingAddress.state || ''}, ${item.shippingAddress.zip || ''}`.trim()
-                : "N/A",
-            products: item.orderItems.map((orderItem) => orderItem.product.name).join(", "),
-            totalAmount: formatter.format(
-                item.orderItems.reduce(
-                    (total, orderItem) =>
-                        total + Number(orderItem.product.price), 
-                    0
-                )
-            ),
-            isPaid: item.isPaid,
-            status: item.status, 
-            createdAt: format(new Date(item.createdAt), "MMMM do, yyyy"),
-        })) 
-        : [];
+  const formattedOrders: OrderColumn[] = Array.isArray(orders) 
+  ? orders.map((item) => ({
+      id: item.id,
+      phone: item.guestPhone || item.user?.phoneNumber || "N/A",
+      address: item.shippingAddress
+          ? `${item.shippingAddress.street || ''}, ${item.shippingAddress.city || ''}, ${item.shippingAddress.state || ''}, ${item.shippingAddress.zip || ''}`.trim()
+          : "N/A",
+      products: item.orderItems.map((orderItem) => orderItem.product.name).join(", "),
+      totalAmount: formatter.format(
+          item.orderItems.reduce(
+              (total, orderItem) =>
+                  total + Number(orderItem.product.price), 
+              0
+          )
+      ),
+      isPaid: item.isPaid,
+      status: item.status, 
+      createdAt: format(new Date(item.createdAt), "MMMM do, yyyy"),
+  })) 
+  : [];
     
-
-    return (
-        <div className="flex-col">
-            <div className="flex-1 p-8 pt-6 space-y-4">
-                <OrderClient data={formattedOrders} />
-            </div>
-        </div>
-    )
+  return (
+    <div className="flex-col">
+      <div className="flex-1 p-8 pt-6 space-y-4">
+        <OrderClient data={formattedOrders} />
+      </div>
+    </div>
+  )
 }
 
 export default OrdersPage;

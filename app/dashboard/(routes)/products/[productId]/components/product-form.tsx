@@ -37,6 +37,7 @@ interface ProductFromProps {
 
 const formSchema = z.object({
     name: z.string().min(1),
+    description: z.string().optional(),
     images: z.object({ url: z.string() }).array(),
     price: z.coerce.number().min(1),
     categoryId: z.string().min(1),
@@ -73,7 +74,8 @@ export const ProductForm: React.FC<ProductFromProps> = ({
         defaultValues: initialData
             ? {
                 name: initialData.name,
-                images: initialData.images ? initialData.images.map(img => ({ url: img.url })) : [], 
+                description: initialData.description || "",
+                images: initialData.images.map(img => ({ url: img.url })), 
                 price: parseFloat(String(initialData.price)),
                 isArchived: initialData.isArchived || false,
                 isFeatured: initialData.isFeatured || false,
@@ -83,6 +85,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
             }
             : {
                 name: '',
+                description: '',
                 images: [],
                 price: 0,
                 isFeatured: false,
@@ -90,7 +93,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                 categoryId: '',
                 colorId: '',
                 sizeIds: [],
-            }    
+            }
     });
         
 
@@ -185,28 +188,33 @@ export const ProductForm: React.FC<ProductFromProps> = ({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
                     <FormField
-                        control={form.control} 
+                        control={form.control}
                         name="images"
                         render={({ field }) => {
                             return (
-                                <FormItem>
-                                    <FormLabel>Background Image</FormLabel>
-                                    <FormControl>
-                                        <ImageUpload
-                                            value={field.value.map((image) => image.url)} 
-                                            disabled={loading}
-                                            onChange={(url) => {
-                                                const newValue = [...field.value, { url, id: crypto.randomUUID() }];
-                                                field.onChange(newValue);
-                                            }}
-                                            onRemove={(url) => {
-                                                const filteredValue = field.value.filter((image) => image.url !== url);
-                                                field.onChange(filteredValue);
-                                            }}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
+                            <FormItem>
+                                <FormLabel>Product Images</FormLabel>
+                                <FormControl>
+                                    <ImageUpload
+                                    value={field.value.map((image) => ({
+                                        url: image.url,
+                                        id: image.url,
+                                    }))}
+                                    disabled={loading}
+                                    onChange={(images) => {
+                                        if (typeof images === "function") return
+                                        field.onChange(images.map((img) => ({ url: img.url })))
+                                    }}
+                                    onRemove={(url) => {
+                                        console.log("HAHA REMOVE:", url)
+                                        const filteredValue = field.value.filter((image) => image.url !== url)
+                                        console.log("HAHA AFTER REMOVE:", filteredValue)
+                                        field.onChange(filteredValue)
+                                    }}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
                             );
                         }}
                     />
@@ -373,7 +381,6 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                                 <FormItem className='flex flex-row items-start p-4 space-x-3 space-y-0 border rounded-md'>
                                     <FormControl>
                                         <Checkbox
-                                            // @ts-ignore
                                             checked={field.value}
                                             onCheckedChange={field.onChange}
                                         />
@@ -389,6 +396,19 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Input disabled={loading} placeholder='Product Description' {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     </div>
                     <Button disabled={loading} className='ml-auto' type='submit'>{action}</Button>
                 </form>

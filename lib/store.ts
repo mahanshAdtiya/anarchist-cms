@@ -53,7 +53,6 @@ export const useAuthStore = create<AuthState>()(
           }
 
           const data = await response.json();
-          console.log("WTF", data.data)
           set({ user: data.data, token }); 
         } catch (error) {
           console.error("Auth check failed:", error);

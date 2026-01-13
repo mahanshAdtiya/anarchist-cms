@@ -11,7 +11,7 @@ export interface Category {
 export interface BillBoard{
   id: string;
   label: string;
-  url: string;
+  imageUrl: string;
   createdAt: string;
 }
 
@@ -85,7 +85,7 @@ export interface Order {
   orderItems: OrderItem[];
   isPaid: boolean;
 
-  createdAt: string; 
+  createdAt: Date; 
   updatedAt: string;
 }
 

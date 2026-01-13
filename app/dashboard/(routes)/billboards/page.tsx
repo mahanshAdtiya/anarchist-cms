@@ -1,5 +1,4 @@
 import { format} from "date-fns"
-import { cookies } from "next/headers";
 
 import { BillBoard } from "@/utils/type";
 import { BillboardClient } from './components/client';
@@ -13,10 +12,10 @@ const BillboardsPage = async () => {
   ? billboard.map(item => ({
       id: item.id,
       label: item.label,
+      imageUrl: item.imageUrl,
       createdAt: format(item.createdAt, "MMMM do, yyyy"),
     }))
   : [];
-
   return (
     <div className="flex-col">
       <div className="flex-1 p-8 pt-6 space-y-4">
@@ -28,18 +27,11 @@ const BillboardsPage = async () => {
 
 async function getBillboards(): Promise<BillBoard[] | null> {
   try {
-    const cookieStore = cookies();
-    const token = (await cookieStore).get("access_token")?.value;
-
-    if (!token) {
-      throw new Error("No access token found. User may not be logged in.");
-    }
-
+    
     const res = await fetch("http://localhost:8080/billboards", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
       },
       cache: "no-cache",
     });
