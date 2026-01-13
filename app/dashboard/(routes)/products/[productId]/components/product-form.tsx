@@ -206,9 +206,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                                         field.onChange(images.map((img) => ({ url: img.url })))
                                     }}
                                     onRemove={(url) => {
-                                        console.log("HAHA REMOVE:", url)
                                         const filteredValue = field.value.filter((image) => image.url !== url)
-                                        console.log("HAHA AFTER REMOVE:", filteredValue)
                                         field.onChange(filteredValue)
                                     }}
                                     />
