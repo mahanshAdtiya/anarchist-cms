@@ -2,7 +2,7 @@
 
 import * as z from 'zod'
 
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import { ChevronDown, Trash } from "lucide-react";
 import { toast } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
@@ -95,7 +95,14 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                 sizeIds: [],
             }
     });
-        
+
+    const [images, setImages] = useState<{ url: string }[]>(
+        initialData?.images.map((i) => ({ url: i.url })) ?? []
+    )
+    useEffect(() => {
+        form.setValue("images", images)
+    }, [images])
+ 
 
     const onSubmit = async (data: ProductFormValues) => {
         try {
@@ -196,19 +203,10 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                                 <FormLabel>Product Images</FormLabel>
                                 <FormControl>
                                     <ImageUpload
-                                    value={field.value.map((image) => ({
-                                        url: image.url,
-                                        id: image.url,
-                                    }))}
-                                    disabled={loading}
-                                    onChange={(images) => {
-                                        if (typeof images === "function") return
-                                        field.onChange(images.map((img) => ({ url: img.url })))
-                                    }}
-                                    onRemove={(url) => {
-                                        const filteredValue = field.value.filter((image) => image.url !== url)
-                                        field.onChange(filteredValue)
-                                    }}
+                                        value={images}
+                                        disabled={loading}
+                                        onAdd={(image) => setImages((prev) => [...prev, image])}
+                                        onRemove={(url) => setImages((prev) => prev.filter((img) => img.url !== url))}
                                     />
                                 </FormControl>
                                 <FormMessage />

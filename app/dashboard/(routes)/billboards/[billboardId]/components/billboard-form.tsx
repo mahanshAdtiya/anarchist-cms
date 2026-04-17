@@ -143,12 +143,9 @@ export const BillboardForm: React.FC<SettingsFormProps> = ({ initialData }) => {
                 <FormLabel>Background Image</FormLabel>
                 <FormControl>
                   <ImageUpload
-                    value={field.value ? [{ url: field.value, id: "img" }] : []}
+                    value={field.value ? [{ url: field.value }] : []}
                     disabled={loading}
-                    onChange={(images) => {
-                      if (typeof images === "function") return
-                      field.onChange(images.map((img) => ({ url: img.url })))
-                    }}
+                    onAdd={(image) => field.onChange(image.url)}
                     onRemove={() => field.onChange("")}
                   />
                 </FormControl>
