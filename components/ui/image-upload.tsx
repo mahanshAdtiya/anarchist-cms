@@ -40,8 +40,8 @@ export default function ImageUpload({
 
       <CldUploadWidget
         uploadPreset="anarchist"
-        onSuccess={(result: any) => {
-          onAdd({ url: result.info.secure_url })
+        onSuccess={(result) => {
+          onAdd({ url: (result.info as { secure_url: string }).secure_url })
         }}
       >
         {({ open }) => (

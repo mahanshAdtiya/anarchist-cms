@@ -4,7 +4,7 @@ import { BillBoard } from "@/utils/type";
 import { API_URL } from "@/lib/api";
 import { CategoryForm } from "./components/category-form";
 
-const CategoryPage =async ({ params }: { params: { categoryId: string } }) => {
+const CategoryPage = async ({ params }: { params: Promise<{ categoryId: string }> }) => {
   const { categoryId } = await params;
 
   const category = await getcategorydData(categoryId); 

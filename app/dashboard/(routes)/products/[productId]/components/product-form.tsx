@@ -102,7 +102,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
     )
     useEffect(() => {
         form.setValue("images", images)
-    }, [images])
+    }, [images, form])
  
 
     const onSubmit = async (data: ProductFormValues) => {
@@ -135,7 +135,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
             router.refresh();
             router.push(`/dashboard/products`);
             toast.success(toastMessage)
-        } catch(err) {
+        } catch {
             toast.error("Something went wrong.");
         } finally {
             setLoading(false)
@@ -159,8 +159,6 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                 cache: "no-cache",
             });
         
-            const jsonResponse = await res.json();
-        
             if (!res.ok) {
                 throw new Error(`Failed to fetch products: ${res.statusText}`);
             }
@@ -168,7 +166,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
             router.refresh();
             router.push(`/dashboard/products`)
             toast.success("Product deleted.")
-        } catch(err) {
+        } catch {
             toast.error("Something Went Wrong.");
         } finally {
             setLoading(false)
@@ -198,7 +196,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                     <FormField
                         control={form.control}
                         name="images"
-                        render={({ field }) => {
+                        render={() => {
                             return (
                             <FormItem>
                                 <FormLabel>Product Images</FormLabel>

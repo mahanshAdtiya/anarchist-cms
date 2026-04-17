@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { SizeForm } from "./components/size-form";
 import { API_URL } from "@/lib/api";
 
-const SizePage = async ({ params }: { params: { sizeId: string } }) => {
+const SizePage = async ({ params }: { params: Promise<{ sizeId: string }> }) => {
     const { sizeId } = await params
     const size = await getSizeData(sizeId)
 

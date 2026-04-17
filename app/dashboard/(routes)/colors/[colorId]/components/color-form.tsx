@@ -110,15 +110,13 @@ export const ColorForm: React.FC<SettingsFromProps> = ({ initialData }) => {
         cache: "no-cache",
       });
   
-    const jsonResponse = await res.json();
-  
       if (!res.ok) {
         throw new Error(`Failed to fetch Colors: ${res.statusText}`);
       }
       router.refresh();
       router.push(`/dashboard/colors`);
       toast.success("Billboard deleted.");
-    } catch (err) {
+    } catch {
       toast.error("Make sure you removed all categories using this billboard first.");
     } finally {
       setLoading(false);

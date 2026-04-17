@@ -47,8 +47,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 cache: "no-cache",
               });
           
-            const jsonResponse = await res.json();
-        
             if (!res.ok) {
                 throw new Error(`Failed to fetch products: ${res.statusText}`);
             }

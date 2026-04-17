@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { ColorForm } from "./components/color-form";
 import { API_URL } from "@/lib/api";
 
-const ColorPage = async ({ params }: { params: { colorId: string } }) => {
+const ColorPage = async ({ params }: { params: Promise<{ colorId: string }> }) => {
     const { colorId } = await params
     const color = await getColorData(colorId)
 

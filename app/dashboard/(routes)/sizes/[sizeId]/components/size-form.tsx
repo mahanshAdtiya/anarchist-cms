@@ -108,15 +108,13 @@ export const SizeForm: React.FC<SettingsFromProps> = ({ initialData }) => {
         cache: "no-cache",
       });
   
-    const jsonResponse = await res.json();
-  
       if (!res.ok) {
         throw new Error(`Failed to fetch sizes: ${res.statusText}`);
       }
       router.refresh();
       router.push(`/dashboard/sizes`);
       toast.success("Billboard deleted.");
-    } catch (err) {
+    } catch {
       toast.error("Make sure you removed all categories using this billboard first.");
     } finally {
       setLoading(false);

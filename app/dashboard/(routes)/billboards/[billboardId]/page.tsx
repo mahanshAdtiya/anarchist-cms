@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { BillboardForm } from "./components/billboard-form";
 import { API_URL } from "@/lib/api";
 
-const BillboardPage = async ({ params }: { params: { billboardId: string } }) => {
+const BillboardPage = async ({ params }: { params: Promise<{ billboardId: string }> }) => {
   const { billboardId } = await params;
 
   const initialData = await getBillboardData(billboardId); 
