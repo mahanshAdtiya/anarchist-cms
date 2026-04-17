@@ -1,6 +1,7 @@
 import { format} from "date-fns"
 
 import { BillBoard } from "@/utils/type";
+import { API_URL } from "@/lib/api";
 import { BillboardClient } from './components/client';
 import { BillboardColumn } from './components/columns';
 
@@ -28,7 +29,7 @@ const BillboardsPage = async () => {
 async function getBillboards(): Promise<BillBoard[] | null> {
   try {
     
-    const res = await fetch("http://localhost:8080/billboards", {
+    const res = await fetch(`${API_URL}/billboards`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

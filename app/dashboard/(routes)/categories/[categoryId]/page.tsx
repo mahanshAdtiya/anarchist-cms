@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 
 import { BillBoard } from "@/utils/type";
+import { API_URL } from "@/lib/api";
 import { CategoryForm } from "./components/category-form";
 
 const CategoryPage =async ({ params }: { params: { categoryId: string } }) => {
@@ -34,7 +35,7 @@ async function getcategorydData(categoryId: string) {
       throw new Error("No access token found. User may not be logged in.");
     }
 
-    const res = await fetch(`http://localhost:8080/categories/${categoryId}`, {
+    const res = await fetch(`${API_URL}/categories/${categoryId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +67,7 @@ async function getBillboards(): Promise<BillBoard[]> {
       return [];
     }
 
-    const res = await fetch("http://localhost:8080/billboards", {
+    const res = await fetch(`${API_URL}/billboards`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Cookies from "js-cookie";
+import { API_URL } from "@/lib/api";
 
 interface User {
   id: string;
@@ -42,7 +43,7 @@ export const useAuthStore = create<AuthState>()(
         }
 
         try {
-          const response = await fetch("http://localhost:8080/users/whoAmI", {
+          const response = await fetch(`${API_URL}/users/whoAmI`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
           });

@@ -23,6 +23,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { useAuthStore } from '@/lib/store';
+import { API_URL } from '@/lib/api';
 import { Category, Color, Image, Product, Size } from '@/utils/type';
 
 
@@ -113,8 +114,8 @@ export const ProductForm: React.FC<ProductFromProps> = ({
             }
 
             const url = initialData
-                ? `http://localhost:8080/products/${params.productId}`
-                : `http://localhost:8080/products`;
+                ? `${API_URL}/products/${params.productId}`
+                : `${API_URL}/products`;
 
             const method = initialData ? "PATCH" : "POST";
 
@@ -149,7 +150,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                 throw new Error("No access token found. User may not be logged in.");
             }
 
-            const res = await fetch(`http://localhost:8080/products/${params.productId}`, {
+            const res = await fetch(`${API_URL}/products/${params.productId}`, {
                 method: "DELETE",
                 headers: {
                 "Content-Type": "application/json",

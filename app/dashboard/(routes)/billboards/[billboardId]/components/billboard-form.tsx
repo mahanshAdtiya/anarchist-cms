@@ -18,6 +18,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { BillBoard } from "@/utils/type";
 import { useAuthStore } from "@/lib/store";
+import { API_URL } from "@/lib/api";
 
 interface SettingsFormProps {
   initialData: BillBoard | null;
@@ -59,8 +60,8 @@ export const BillboardForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       }
 
       const url = initialData
-        ? `http://localhost:8080/billboards/${params.billboardId}`
-        : `http://localhost:8080/billboards`;
+        ? `${API_URL}/billboards/${params.billboardId}`
+        : `${API_URL}/billboards`;
 
       const method = initialData ? "PATCH" : "POST";
 
@@ -96,7 +97,7 @@ export const BillboardForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         throw new Error("No access token found. User may not be logged in.");
       }
 
-      const res = await fetch(`http://localhost:8080/billboards/${params.billboardId}`, {
+      const res = await fetch(`${API_URL}/billboards/${params.billboardId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

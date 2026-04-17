@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 
 import { useAuthStore } from '@/lib/store';
+import { API_URL } from '@/lib/api';
 import { BillBoard, Category } from '@/utils/type';
 
 import { Input } from '@/components/ui/input';
@@ -63,8 +64,8 @@ export const CategoryForm: React.FC<SettingsFromProps> = ({ initialData, billboa
         }
 
         const url = initialData
-            ? `http://localhost:8080/categories/${params.categoryId}`
-            : `http://localhost:8080/categories`;
+            ? `${API_URL}/categories/${params.categoryId}`
+            : `${API_URL}/categories`;
 
         const method = initialData ? "PATCH" : "POST";
 
@@ -100,7 +101,7 @@ export const CategoryForm: React.FC<SettingsFromProps> = ({ initialData, billboa
             throw new Error("No access token found. User may not be logged in.");
         }
 
-        const res = await fetch(`http://localhost:8080/categories/${params.categoryId}`, {
+        const res = await fetch(`${API_URL}/categories/${params.categoryId}`, {
             method: "DELETE",
             headers: {
             "Content-Type": "application/json",

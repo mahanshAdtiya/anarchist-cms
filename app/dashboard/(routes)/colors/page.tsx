@@ -1,6 +1,7 @@
 import { format} from "date-fns"
 
 import { cookies } from "next/headers";
+import { API_URL } from "@/lib/api";
 
 import { Color } from "@/utils/type";
 import { ColorClient } from './components/client'
@@ -36,7 +37,7 @@ async function getColors(): Promise<Color[] | null> {
       throw new Error("No access token found. User may not be logged in.");
     }
 
-    const res = await fetch("http://localhost:8080/colors", {
+    const res = await fetch(`${API_URL}/colors`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

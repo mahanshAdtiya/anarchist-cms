@@ -1,5 +1,6 @@
 import { Order } from "@/utils/type";
 import { cookies } from "next/headers";
+import { API_URL } from "@/lib/api";
 
 export const getSalesCount = async () => {
     const salesCount = await fetchOrder()
@@ -16,7 +17,7 @@ async function fetchOrder(): Promise<Order[]> {
             throw new Error("No access token found. User may not be logged in.");
         }
 
-        const res = await fetch("http://localhost:8080/orders", {
+        const res = await fetch(`${API_URL}/orders`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

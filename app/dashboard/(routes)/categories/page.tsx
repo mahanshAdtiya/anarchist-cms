@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import { cookies } from "next/headers";
+import { API_URL } from "@/lib/api";
 
 import { Category } from '@/utils/type';
 import { CategoryClient } from './components/client'
@@ -36,7 +37,7 @@ async function getAllCategories(): Promise<Category[] | null> {
       throw new Error("No access token found. User may not be logged in.");
     }
 
-    const res = await fetch("http://localhost:8080/categories", {
+    const res = await fetch(`${API_URL}/categories`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

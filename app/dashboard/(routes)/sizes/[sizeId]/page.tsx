@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { SizeForm } from "./components/size-form";
+import { API_URL } from "@/lib/api";
 
 const SizePage = async ({ params }: { params: { sizeId: string } }) => {
     const { sizeId } = await params
@@ -27,7 +28,7 @@ async function getSizeData(colorId: string) {
         throw new Error("No access token found. User may not be logged in.");
       }
   
-      const res = await fetch(`http://localhost:8080/sizes/${colorId}`, {
+      const res = await fetch(`${API_URL}/sizes/${colorId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

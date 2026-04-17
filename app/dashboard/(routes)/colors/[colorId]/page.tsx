@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { ColorForm } from "./components/color-form";
+import { API_URL } from "@/lib/api";
 
 const ColorPage = async ({ params }: { params: { colorId: string } }) => {
     const { colorId } = await params
@@ -27,7 +28,7 @@ async function getColorData(colorId: string) {
         throw new Error("No access token found. User may not be logged in.");
       }
   
-      const res = await fetch(`http://localhost:8080/colors/${colorId}`, {
+      const res = await fetch(`${API_URL}/colors/${colorId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

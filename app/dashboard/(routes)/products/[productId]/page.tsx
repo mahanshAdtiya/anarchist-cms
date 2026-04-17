@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 
 import { ProductForm } from "./components/product-form";
+import { API_URL } from "@/lib/api";
 import { Category, Color, Size } from "@/utils/type";
 
 const ProductPage = async ({ params }: { params: Promise<{ productId: string}> }) => {
@@ -42,7 +43,7 @@ async function getProductData(productId:string) {
           throw new Error("No access token found. User may not be logged in.");
         }
     
-        const res = await fetch(`http://localhost:8080/products/${productId}`, {
+        const res = await fetch(`${API_URL}/products/${productId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -75,7 +76,7 @@ async function getCategories(): Promise<Category[]> {
         return []; 
         }
 
-        const res = await fetch("http://localhost:8080/categories", {
+        const res = await fetch(`${API_URL}/categories`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -107,7 +108,7 @@ try {
     return [];
     }
 
-    const res = await fetch("http://localhost:8080/colors", {
+    const res = await fetch(`${API_URL}/colors`, {
     method: "GET",
     headers: {
         "Content-Type": "application/json",
@@ -139,7 +140,7 @@ try {
     return [];
     }
 
-    const res = await fetch("http://localhost:8080/sizes", {
+    const res = await fetch(`${API_URL}/sizes`, {
     method: "GET",
     headers: {
         "Content-Type": "application/json",

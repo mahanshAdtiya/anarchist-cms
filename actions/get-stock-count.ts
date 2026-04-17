@@ -1,5 +1,6 @@
 import { GetProductsDto, Product } from "@/utils/type";
 import { cookies } from "next/headers";
+import { API_URL } from "@/lib/api";
 
 export const getStockCount = async () => {
     const products = await fetchProducts();
@@ -30,7 +31,7 @@ async function fetchProducts(filters: Partial<GetProductsDto> = {}): Promise<Pro
       }
     });
 
-    const url = `http://localhost:8080/products${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+    const url = `${API_URL}/products${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
 
     const res = await fetch(url, {
       method: "GET",

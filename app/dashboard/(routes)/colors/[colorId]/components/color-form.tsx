@@ -18,6 +18,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 
 import { Color } from '@/utils/type';
 import { useAuthStore } from "@/lib/store";
+import { API_URL } from "@/lib/api";
 
 interface SettingsFromProps {
     initialData: Color | null; 
@@ -63,8 +64,8 @@ export const ColorForm: React.FC<SettingsFromProps> = ({ initialData }) => {
       }
 
       const url = initialData
-        ? `http://localhost:8080/colors/${params.colorId}`
-        : `http://localhost:8080/colors`;
+        ? `${API_URL}/colors/${params.colorId}`
+        : `${API_URL}/colors`;
 
       const method = initialData ? "PATCH" : "POST";
 
@@ -100,7 +101,7 @@ export const ColorForm: React.FC<SettingsFromProps> = ({ initialData }) => {
         throw new Error("No access token found. User may not be logged in.");
       }
 
-      const res = await fetch(`http://localhost:8080/colors/${params.colorId}`, {
+      const res = await fetch(`${API_URL}/colors/${params.colorId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

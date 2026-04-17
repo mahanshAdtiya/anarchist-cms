@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { User } from "@/utils/type";
 import { useAuthStore } from "@/lib/store";
+import { API_URL } from "@/lib/api";
 
 interface SettingsFormsProps{
     initialData: User;
@@ -48,7 +49,7 @@ export const SettingsForm: React.FC<SettingsFormsProps> = ({ initialData }) => {
             }
 
 
-            const res = await fetch('http://localhost:8080/users', {
+            const res = await fetch(`${API_URL}/users`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

@@ -1,5 +1,6 @@
 import { format} from "date-fns"
 import { cookies } from "next/headers"
+import { API_URL } from "@/lib/api"
 
 import { formatter } from '@/lib/utils'
 import { ProductClient } from './components/client'
@@ -59,7 +60,7 @@ async function getProducts(filters: Partial<GetProductsDto> = {}): Promise<Produ
       }
     });
 
-    const url = `http://localhost:8080/products${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+    const url = `${API_URL}/products${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
 
     const res = await fetch(url, {
       method: "GET",

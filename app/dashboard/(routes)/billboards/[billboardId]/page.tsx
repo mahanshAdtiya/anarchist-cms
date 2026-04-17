@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { BillboardForm } from "./components/billboard-form";
+import { API_URL } from "@/lib/api";
 
 const BillboardPage = async ({ params }: { params: { billboardId: string } }) => {
   const { billboardId } = await params;
@@ -28,7 +29,7 @@ async function getBillboardData(billboardId: string) {
       throw new Error("No access token found. User may not be logged in.");
     }
 
-    const res = await fetch(`http://localhost:8080/billboards/${billboardId}`, {
+    const res = await fetch(`${API_URL}/billboards/${billboardId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

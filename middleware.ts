@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { API_URL } from "@/lib/api";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("access_token")?.value;
@@ -6,7 +7,7 @@ export async function middleware(req: NextRequest) {
 
   if (token) {
     try {
-      const response = await fetch("http://localhost:8080/users/whoAmI", {
+      const response = await fetch(`${API_URL}/users/whoAmI`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

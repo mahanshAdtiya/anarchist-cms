@@ -1,6 +1,7 @@
 import { format} from "date-fns"
 
 import { cookies } from "next/headers";
+import { API_URL } from "@/lib/api";
 
 import { Size } from "@/utils/type";
 import { SizeClient } from './components/client'
@@ -36,7 +37,7 @@ async function getSizes(): Promise<Size[] | null> {
       throw new Error("No access token found. User may not be logged in.");
     }
 
-    const res = await fetch("http://localhost:8080/sizes", {
+    const res = await fetch(`${API_URL}/sizes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

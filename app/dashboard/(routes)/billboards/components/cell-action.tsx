@@ -7,6 +7,7 @@ import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
 
 import { BillboardColumn } from "./columns"
 import { useAuthStore } from "@/lib/store"
+import { API_URL } from "@/lib/api"
 
 
 import { Button } from "@/components/ui/button"
@@ -40,7 +41,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 throw new Error("No access token found. User may not be logged in.");
               }
               
-            const res = await fetch(`http://localhost:8080/billboards/${data.id}`, {
+            const res = await fetch(`${API_URL}/billboards/${data.id}`, {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",

@@ -18,6 +18,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 
 import { Size } from '@/utils/type';
 import { useAuthStore } from "@/lib/store";
+import { API_URL } from "@/lib/api";
 
 interface SettingsFromProps {
   initialData: Size | null; 
@@ -61,8 +62,8 @@ export const SizeForm: React.FC<SettingsFromProps> = ({ initialData }) => {
       }
 
       const url = initialData
-        ? `http://localhost:8080/sizes/${params.sizeId}`
-        : `http://localhost:8080/sizes`;
+        ? `${API_URL}/sizes/${params.sizeId}`
+        : `${API_URL}/sizes`;
 
       const method = initialData ? "PATCH" : "POST";
 
@@ -98,7 +99,7 @@ export const SizeForm: React.FC<SettingsFromProps> = ({ initialData }) => {
         throw new Error("No access token found. User may not be logged in.");
       }
 
-      const res = await fetch(`http://localhost:8080/sizes/${params.sizes}`, {
+      const res = await fetch(`${API_URL}/sizes/${params.sizes}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

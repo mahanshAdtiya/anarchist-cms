@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import { cookies } from 'next/headers'
+import { API_URL } from '@/lib/api'
 
 import { formatter } from '@/lib/utils'
 import { OrderClient } from './components/client'
@@ -50,7 +51,7 @@ async function getOrders(): Promise<Order[] | null> {
       throw new Error("No access token found. User may not be logged in.");
     }
 
-    const res = await fetch("http://localhost:8080/orders", {
+    const res = await fetch(`${API_URL}/orders`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

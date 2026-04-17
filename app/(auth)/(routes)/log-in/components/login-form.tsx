@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {useAuthStore} from "@/lib/store";
+import { API_URL } from "@/lib/api";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email format" }),
@@ -29,7 +30,7 @@ export function LoginForm() {
   const handleLogin = async (data: LoginFormValues) => {
     setError("");
     try {
-      const res = await fetch("http://localhost:8080/auth/login", {
+      const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
