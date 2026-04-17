@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { cookies } from "next/headers";
+import { API_URL } from "@/lib/api";
 import { SettingsForm } from "./components/settings-form";
 
 const SettingsPage = async () => {
@@ -28,7 +29,7 @@ async function getUserDetails() {
             throw new Error("No access token found. User may not be logged in.");
         }
     
-        const res = await fetch("http://localhost:8080/users/whoAmI", {
+        const res = await fetch(`${API_URL}/users/whoAmI`, {
             method: "GET",
             headers: {
             "Content-Type": "application/json",
