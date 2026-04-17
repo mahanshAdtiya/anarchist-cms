@@ -1,4 +1,4 @@
-import Metadata from "next";
+import type { Metadata } from "next/types";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { ToastProvider } from "@/providers/toast-provider";

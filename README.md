@@ -1,6 +1,6 @@
 # Anarchist.in — Store Admin Dashboard
 
-A full-featured admin dashboard for managing an e-commerce store. Built with Next.js 15 and connects to a separate backend API.
+A full-featured admin dashboard for managing an e-commerce store. Built with Next.js 16 and connects to a separate backend API.
 
 ## Features
 
@@ -14,7 +14,7 @@ A full-featured admin dashboard for managing an e-commerce store. Built with Nex
 
 ## Tech Stack
 
-- **Framework:** Next.js 15 (App Router) + TypeScript
+- **Framework:** Next.js 16.2.4 (App Router, Turbopack) + TypeScript
 - **UI:** Tailwind CSS + Shadcn/UI + Radix UI
 - **Forms:** React Hook Form + Zod
 - **State:** Zustand (auth store, persisted to localStorage)
@@ -26,6 +26,7 @@ A full-featured admin dashboard for managing an e-commerce store. Built with Nex
 ## Prerequisites
 
 - Node.js 18+
+- pnpm
 - Backend API running at `http://localhost:8080` (see [Backend API](#backend-api))
 - A Cloudinary account
 
@@ -34,7 +35,7 @@ A full-featured admin dashboard for managing an e-commerce store. Built with Nex
 1. **Install dependencies**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. **Configure environment variables**
@@ -51,7 +52,7 @@ A full-featured admin dashboard for managing an e-commerce store. Built with Nex
 4. **Start the dev server**
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
    Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to `/log-in`.
@@ -60,10 +61,10 @@ A full-featured admin dashboard for managing an e-commerce store. Built with Nex
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm start` | Start production server |
-| `npm run lint` | Run ESLint |
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm lint` | Run ESLint |
 
 ## Backend API
 
@@ -103,5 +104,5 @@ All protected endpoints require a `Bearer <token>` Authorization header.
 │   └── store.ts             # Zustand auth store
 ├── utils/
 │   └── type.ts              # TypeScript interfaces
-└── middleware.ts            # Auth token validation & route protection
+└── proxy.ts                 # Auth token validation & route protection
 ```
